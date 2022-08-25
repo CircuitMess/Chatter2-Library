@@ -43,6 +43,6 @@
 #define INPUT_CLOCK 22
 #define INPUT_LOAD 21
 
-#define BATTERY_PIN 36
+#define BATTERY_PIN 34
 
 #endif //CHATTER_LIBRARY_PINS_H

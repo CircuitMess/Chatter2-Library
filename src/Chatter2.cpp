@@ -1,15 +1,15 @@
-#include "Chatter.h"
+#include "Chatter2.h"
 #include <Loop/LoopManager.h>
 #include "Pins.hpp"
 #include "Battery/BatteryService.h"
 #include "Settings.h"
 #include <SPIFFS.h>
 
-ChatterImpl Chatter;
+Chatter2Impl Chatter;
 
-ChatterImpl::ChatterImpl() : spiLoRa(HSPI){}
+Chatter2Impl::Chatter2Impl() : spiLoRa(HSPI){}
 
-void ChatterImpl::begin(bool backlight){
+void Chatter2Impl::begin(bool backlight){
 	Serial.begin(115200);
 
 	pinMode(PIN_BL, OUTPUT);
@@ -51,7 +51,7 @@ void ChatterImpl::begin(bool backlight){
 	}
 }
 
-void ChatterImpl::setBrightness(uint8_t brightness){
+void Chatter2Impl::setBrightness(uint8_t brightness){
 	if(!pwmInited){
 		initPWM();
 	}
@@ -59,19 +59,19 @@ void ChatterImpl::setBrightness(uint8_t brightness){
 	ledcWrite(6, mapDuty(brightness));
 }
 
-Display* ChatterImpl::getDisplay(){
+Display* Chatter2Impl::getDisplay(){
 	return display;
 }
 
-Input* ChatterImpl::getInput(){
+Input* Chatter2Impl::getInput(){
 	return input;
 }
 
-SPIClass &ChatterImpl::getSPILoRa(){
+SPIClass &Chatter2Impl::getSPILoRa(){
 	return spiLoRa;
 }
 
-void ChatterImpl::fadeOut(){
+void Chatter2Impl::fadeOut(){
 	if(!pwmInited){
 		initPWM();
 	}
@@ -87,7 +87,7 @@ void ChatterImpl::fadeOut(){
 	deinitPWM();
 }
 
-void ChatterImpl::fadeIn(){
+void Chatter2Impl::fadeIn(){
 	if(!pwmInited){
 		initPWM();
 	}
@@ -101,26 +101,26 @@ void ChatterImpl::fadeIn(){
 	}
 }
 
-void ChatterImpl::initPWM(){
+void Chatter2Impl::initPWM(){
 	ledcSetup(6, 5000, 8);
 	ledcAttachPin(PIN_BL, 6);
 	pwmInited = true;
 }
 
-void ChatterImpl::deinitPWM(){
+void Chatter2Impl::deinitPWM(){
 	ledcDetachPin(PIN_BL);
 	digitalWrite(PIN_BL, HIGH);
 	pwmInited = false;
 }
 
-bool ChatterImpl::backlightPowered() const{
+bool Chatter2Impl::backlightPowered() const{
 	return pwmInited;
 }
 
-void ChatterImpl::backlightOff(){
+void Chatter2Impl::backlightOff(){
 	deinitPWM();
 }
 
-uint8_t ChatterImpl::mapDuty(uint8_t brightness){
+uint8_t Chatter2Impl::mapDuty(uint8_t brightness){
 	return map(brightness, 0, 255, 240, 0);
 }

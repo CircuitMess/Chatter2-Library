@@ -12,9 +12,9 @@
 #include "Pins.hpp"
 #include "Battery/BatteryService.h"
 
-class ChatterImpl {
+class Chatter2Impl {
 public:
-	ChatterImpl();
+	Chatter2Impl();
 
 	/**
 	 * Initializes display, input, Piezo, SPIFFS, battery service, and LoRa SPI
@@ -71,5 +71,5 @@ private:
 	static uint8_t mapDuty(uint8_t brightness);
 };
 
-extern ChatterImpl Chatter;
+extern Chatter2Impl Chatter;
 #endif
