@@ -45,4 +45,6 @@
 
 #define BATTERY_PIN 34
 
+#define PIN_WAKE 36
+
 #endif //CHATTER_LIBRARY_PINS_H
