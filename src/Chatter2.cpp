@@ -85,6 +85,9 @@ void Chatter2Impl::fadeOut(){
 	}
 
 	deinitPWM();
+
+	display->getBaseSprite()->clear(TFT_BLACK);
+	display->commit();
 }
 
 void Chatter2Impl::fadeIn(){
